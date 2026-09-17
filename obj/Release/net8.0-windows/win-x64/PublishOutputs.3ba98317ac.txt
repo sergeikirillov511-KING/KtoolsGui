@@ -1,0 +1,7 @@
+F:\Хранение проектов\KtoolsGui\Assets\10th_Anniversary_Celebration.png
+F:\Хранение проектов\KtoolsGui\Assets\KtoolGUI_Backround.ico
+F:\Хранение проектов\KtoolsGui\KtoolsGui.exe
+F:\Хранение проектов\KtoolsGui\KtoolsGui.dll
+F:\Хранение проектов\KtoolsGui\KtoolsGui.deps.json
+F:\Хранение проектов\KtoolsGui\KtoolsGui.runtimeconfig.json
+F:\Хранение проектов\KtoolsGui\KtoolsGui.pdb

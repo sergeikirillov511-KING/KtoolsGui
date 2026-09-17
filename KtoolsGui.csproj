@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Assets\KtoolGUI_Backround.ico</ApplicationIcon>
+		<StartupObject>KtoolsGui.App</StartupObject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Assets\10th_Anniversary_Celebration.png" />
+		<None Remove="Assets\KtoolGUI_Backround.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Assets\10th_Anniversary_Celebration.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\KtoolGUI_Backround.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>

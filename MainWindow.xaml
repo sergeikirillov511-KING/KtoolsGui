@@ -1,0 +1,159 @@
+﻿<Window x:Class="KtoolsGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ktools GUI" Height="500" Width="800"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResizeWithGrip"
+        Background="#F5F5F5"
+        Icon="Assets/KtoolGUI_Backround.ico">
+    <Window.Resources>
+        <!-- Стили для кнопок -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005A9E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стили для TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Стили для TabControl -->
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="#F5F5F5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Меню -->
+        <Menu x:Name="MainMenu" Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе" Click="AboutMenuItem_Click"/>
+                <MenuItem Header="Язык / Language">
+                    <MenuItem Header="Русский" Click="LangRu_Click"/>
+                    <MenuItem Header="English" Click="LangEn_Click"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <!-- Контент -->
+        <Grid Grid.Row="1" Margin="20">
+            <TabControl x:Name="MainTabControl" Background="#F5F5F5" BorderThickness="0">
+                <!-- Вкладка: Текстуры -->
+                <TabItem Header="📁 Текстуры" FontSize="14" Padding="10,5">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📂 Входная папка (.tex):" VerticalAlignment="Center" Width="160" FontWeight="SemiBold"/>
+                                <TextBox x:Name="TexInputFolderBox" Height="30" Width="380"/>
+                                <Button Content="Выбрать" Width="100" Click="TexInputFolderButton_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📤 Выходная папка (.png):" VerticalAlignment="Center" Width="180" FontWeight="SemiBold"/>
+                                <TextBox x:Name="TexOutputFolderBox" Height="30" Width="380"/>
+                                <Button Content="Выбрать" Width="100" Click="TexOutputFolderButton_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Grid.Row="2" Content="🚀 Конвертировать текстуры"
+                                HorizontalAlignment="Left"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Click="ConvertTexturesButton_Click"
+                                Margin="0,10,0,10"
+                                Height="40" Width="250"/>
+
+                        <TextBox Grid.Row="3" x:Name="TexLogBox"
+                                 IsReadOnly="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 AcceptsReturn="True"
+                                 FontFamily="Consolas"
+                                 FontSize="12"
+                                 Background="#FAFAFA"
+                                 BorderBrush="#E0E0E0"
+                                 Padding="10"
+                                 Margin="0,10,0,0"/>
+                    </Grid>
+                </TabItem>
+
+                <!-- Вкладка: Анимации -->
+                <TabItem Header="🎬 Анимации" FontSize="14" Padding="10,5">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📂 Исходная папка:" VerticalAlignment="Center" Width="160" FontWeight="SemiBold"/>
+                                <TextBox x:Name="AnimBuildFolderBox" Height="30" Width="380"/>
+                                <Button Content="Выбрать" Width="100" Click="AnimBuildFolderButton_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📤 Выходная папка:" VerticalAlignment="Center" Width="160" FontWeight="SemiBold"/>
+                                <TextBox x:Name="AnimOutputFolderBox" Height="30" Width="380"/>
+                                <Button Content="Выбрать" Width="100" Click="AnimOutputFolderButton_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Grid.Row="2" Content="🚀 Конвертировать анимации"
+                                HorizontalAlignment="Left"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Click="ConvertAnimationsButton_Click"
+                                Margin="0,10,0,10"
+                                Height="40" Width="250"/>
+
+                        <TextBox Grid.Row="3" x:Name="AnimLogBox"
+                                 IsReadOnly="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 AcceptsReturn="True"
+                                 FontFamily="Consolas"
+                                 FontSize="12"
+                                 Background="#FAFAFA"
+                                 BorderBrush="#E0E0E0"
+                                 Padding="10"
+                                 Margin="0,10,0,0"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
