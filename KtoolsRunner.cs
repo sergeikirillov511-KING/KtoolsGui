@@ -1,108 +1,238 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
+using System.Text;
 
-public static class KtoolsRunner
+namespace KtoolsGui
 {
-    private static readonly string KtechPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ktech.exe");
-    private static readonly string KranePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "krane.exe");
-
-    public static string RunKtech(string inputTex, string outputPng)
+    public static class KtoolsRunner
     {
-        return RunKtoolsTool(KtechPath, $"\"{inputTex}\" \"{outputPng}\"");
-    }
-
-    public static string RunKrane(string sourceDir, string outputDir)
-    {
-        // krane ожидает папку, где лежат build.bin и anim.bin
-        var args = $"\"{sourceDir}\" \"{outputDir}\"";
-        return RunKtoolsTool(KranePath, args);
-    }
-
-    public static string RunKtechBatch(string inputDir, string outputDir)
-    {
-        Directory.CreateDirectory(outputDir);
-        var texFiles = Directory.GetFiles(inputDir, "*.tex");
-
-        var log = new System.Text.StringBuilder();
-
-        foreach (var tex in texFiles)
+        public static string RunKtechBatch(string inputFolder, string outputFolder)
         {
-            string fileName = Path.GetFileNameWithoutExtension(tex);
-            string outPath = Path.Combine(outputDir, fileName + ".png");
+            var log = new StringBuilder();
+            log.AppendLine($"🔄 Конвертация текстур (.tex → .png)");
+            log.AppendLine($"📂 Вход: {inputFolder}");
+            log.AppendLine($"📤 Выход: {outputFolder}");
+            log.AppendLine();
 
-            try
+            if (!Directory.Exists(inputFolder))
             {
-                string result = RunKtech(tex, outPath);
-                log.AppendLine($"[{Path.GetFileName(tex)}] {result}");
+                log.AppendLine($"❌ Папка не найдена: {inputFolder}");
+                return log.ToString();
             }
-            catch (Exception ex)
+
+            var texFiles = Directory.GetFiles(inputFolder, "*.tex");
+            if (texFiles.Length == 0)
             {
-                log.AppendLine($"[{Path.GetFileName(tex)}] ERROR: {ex.Message}");
+                log.AppendLine("❌ .tex файлы не найдены!");
+                return log.ToString();
             }
+
+            log.AppendLine($"📁 Найдено файлов: {texFiles.Length}");
+            log.AppendLine();
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "ktech.exe",
+                Arguments = $"\"{inputFolder}\" \"{outputFolder}\" batch-reverse",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (var process = Process.Start(startInfo))
+            {
+                if (process != null)
+                {
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    log.AppendLine("🚀 Запуск ktech batch...");
+                    log.AppendLine(output);
+                    if (!string.IsNullOrEmpty(error))
+                        log.AppendLine($"⚠️ {error}");
+                    log.AppendLine($"🎉 Завершено! Файлы в: {outputFolder}");
+                }
+            }
+
+            return log.ToString();
         }
 
-        return log.ToString();
-    }
-
-    public static string RunKraneBatch(string sourceDir, string outputDir)
-    {
-        Directory.CreateDirectory(outputDir);
-
-        // Ищем все build.bin в папке
-        var buildFiles = Directory.GetFiles(sourceDir, "*build.bin", SearchOption.AllDirectories);
-        var log = new System.Text.StringBuilder();
-
-        foreach (var build in buildFiles)
+        public static string RunKtechBatchReverse(string inputFolder, string outputFolder)
         {
-            string buildDir = Path.GetDirectoryName(build);
-            string animPath = Path.Combine(buildDir, Path.GetFileNameWithoutExtension(build).Replace("build", "anim") + ".bin");
+            var log = new StringBuilder();
+            log.AppendLine($"🔄 Обратная конвертация текстур (.png → .tex)");
+            log.AppendLine($"📂 Вход: {inputFolder}");
+            log.AppendLine($"📤 Выход: {outputFolder}");
+            log.AppendLine();
 
-            if (!File.Exists(animPath))
+            if (!Directory.Exists(inputFolder))
             {
-                log.AppendLine($"[{Path.GetFileName(build)}] Нет соответствующего anim-файла: {animPath}");
-                continue;
+                log.AppendLine($"❌ Папка не найдена: {inputFolder}");
+                return log.ToString();
             }
 
-            string outProjectDir = Path.Combine(outputDir, Path.GetFileName(buildDir));
+            var pngFiles = Directory.GetFiles(inputFolder, "*.png");
+            if (pngFiles.Length == 0)
+            {
+                log.AppendLine("❌ .png файлы не найдены!");
+                return log.ToString();
+            }
 
-            try
+            log.AppendLine($"📁 Найдено файлов: {pngFiles.Length}");
+            log.AppendLine();
+
+            // Конвертируем каждый PNG файл
+            foreach (var pngFile in pngFiles)
             {
-                // Передаём папку, где лежат оба файла
-                string result = RunKrane(buildDir, outProjectDir);
-                log.AppendLine($"[{Path.GetFileName(build)}] {result}");
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "ktech.exe",
+                    Arguments = $"\"{pngFile}\" \"{outputFolder}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (var process = Process.Start(startInfo))
+                {
+                    if (process != null)
+                    {
+                        string output = process.StandardOutput.ReadToEnd();
+                        string error = process.StandardError.ReadToEnd();
+                        process.WaitForExit();
+
+                        log.AppendLine($"📄 {Path.GetFileName(pngFile)}:");
+                        if (!string.IsNullOrEmpty(output))
+                            log.AppendLine(output);
+                        if (!string.IsNullOrEmpty(error))
+                            log.AppendLine($"⚠️ {error}");
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                log.AppendLine($"[{Path.GetFileName(build)}] ERROR: {ex.Message}");
-            }
+
+            log.AppendLine($"🎉 Завершено! Файлы в: {outputFolder}");
+
+            return log.ToString();
         }
 
-        return log.ToString();
-    }
-
-    private static string RunKtoolsTool(string exePath, string arguments)
-    {
-        if (!File.Exists(exePath))
-            throw new FileNotFoundException($"Не найден файл инструмента: {exePath}");
-
-        var startInfo = new ProcessStartInfo
+        public static string RunKraneBatch(string binFolder, string outputFolder)
         {
-            FileName = exePath,
-            Arguments = arguments,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
+            var log = new StringBuilder();
+            log.AppendLine($"🔄 Извлечение анимаций (.bin → SCML + PNG)");
+            log.AppendLine($"📂 Папка .bin: {binFolder}");
+            log.AppendLine($"📤 Выход: {outputFolder}");
+            log.AppendLine();
 
-        using (var proc = Process.Start(startInfo))
+            if (!Directory.Exists(binFolder))
+            {
+                log.AppendLine($"❌ Папка не найдена: {binFolder}");
+                return log.ToString();
+            }
+
+            var animBin = Path.Combine(binFolder, "anim.bin");
+            var buildBin = Path.Combine(binFolder, "build.bin");
+
+            if (!File.Exists(animBin))
+            {
+                log.AppendLine("❌ anim.bin не найден!");
+                return log.ToString();
+            }
+
+            if (!File.Exists(buildBin))
+            {
+                log.AppendLine("❌ build.bin не найден!");
+                return log.ToString();
+            }
+
+            log.AppendLine($"✅ anim.bin: найден");
+            log.AppendLine($"✅ build.bin: найден");
+            log.AppendLine();
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "krane.exe",
+                Arguments = $"\"{binFolder}\" \"{outputFolder}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (var process = Process.Start(startInfo))
+            {
+                if (process != null)
+                {
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    log.AppendLine("🚀 Запуск krane...");
+                    log.AppendLine(output);
+                    if (!string.IsNullOrEmpty(error))
+                        log.AppendLine($"⚠️ {error}");
+                    log.AppendLine($"🎉 Завершено! SCML и PNG в: {outputFolder}");
+                }
+            }
+
+            return log.ToString();
+        }
+
+        public static string RunKraneBatchReverse(string inputFolder, string outputFolder)
         {
-            string output = proc.StandardOutput.ReadToEnd();
-            string error = proc.StandardError.ReadToEnd();
-            proc.WaitForExit();
+            var log = new StringBuilder();
+            log.AppendLine($"🔄 Сборка анимаций (SCML + PNG → .bin)");
+            log.AppendLine($"📂 Вход: {inputFolder}");
+            log.AppendLine($"📤 Выход: {outputFolder}");
+            log.AppendLine();
 
-            return string.IsNullOrEmpty(error) ? output : error;
+            if (!Directory.Exists(inputFolder))
+            {
+                log.AppendLine($"❌ Папка не найдена: {inputFolder}");
+                return log.ToString();
+            }
+
+            // Проверяем наличие SCML файла
+            var scmlFiles = Directory.GetFiles(inputFolder, "*.scml");
+            if (scmlFiles.Length == 0)
+            {
+                log.AppendLine("❌ .scml файлы не найдены!");
+                log.AppendLine("   Для сборки нужен Spriter проект (.scml)");
+                return log.ToString();
+            }
+
+            log.AppendLine($"📁 Найдено SCML: {scmlFiles.Length}");
+            log.AppendLine();
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "krane.exe",
+                Arguments = $"\"{inputFolder}\" \"{outputFolder}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (var process = Process.Start(startInfo))
+            {
+                if (process != null)
+                {
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    log.AppendLine("🚀 Запуск krane...");
+                    log.AppendLine(output);
+                    if (!string.IsNullOrEmpty(error))
+                        log.AppendLine($"⚠️ {error}");
+                    log.AppendLine($"🎉 Завершено! .bin файлы в: {outputFolder}");
+                }
+            }
+
+            return log.ToString();
         }
     }
 }
