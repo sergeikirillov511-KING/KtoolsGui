@@ -2,7 +2,8 @@
 
 Graphical interface for Ktools utilities (ktex2png and krane). Allows you to convert textures and animations in a convenient format using buttons rather than the command line.
 ## About
-KtoolsGui is a tool designed for Don't Starve Together modding. It helps modders with number conversion, texture and animation utilities, and provides a modern interface for efficient mod development.
+
+KtoolsGui is a tool for Don't Starve Together modders. Convert animation files (.build.bin to PNG), work with number systems, and enjoy a modern interface designed for efficient mod development.
 ![KtoolsGui](https://img.shields.io/badge/platform-Windows-blue)
 ![.NET](https://img.shields.io/badge/.NET-8.0-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -14,6 +15,7 @@ KtoolsGui is a tool designed for Don't Starve Together modding. It helps modders
 - 🌐 Bilingual interface (Russian / English)
 - 🎨 Nice design with background
 - 🚀 Fast one - click conversion
+- Built for DST modding
 
 ## Requirements
 
