@@ -42,14 +42,18 @@ Graphical interface for Ktools utilities (ktex2png and krane). Allows you to con
 4. Press **🚀 Convert animations**.
 
 ## Screenshots
-
+![Screenshots](screenshots/Screenshot_8.png)
+![Screenshots](screenshots/Screenshot_9.png)
 ### Main window
 
 ![Main window](screenshots/Screenshot_4.png)
+![Main window](screenshots/Screenshot_6.png)
+
 
 ### Animations
 
 ![Animations](screenshots/Screenshot_5.png)
+![Animations](screenshots/Screenshot_7.png)
 ## Build from source
 
 ```bash
