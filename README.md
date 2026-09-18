@@ -64,7 +64,7 @@ Before using KtoolsGui, make sure you have:
 ### Option 1: Download Pre-built Version (Recommended)
 
 1. Go to the **[Releases](https://github.com/sergeikirillov511-KING/KtoolsGui/releases)** page
-2. Download the latest version (e.g., `KtoolsGui-v1.0.zip`)
+2. Download the latest version (e.g., `KtoolsGui-v4.5.4.zip`)
 3. Extract the archive to any folder (e.g., `C:\Games\KtoolsGui\`)
 4. Run `KtoolsGui.exe`
 
