@@ -45,11 +45,11 @@ Graphical interface for Ktools utilities (ktex2png and krane). Allows you to con
 
 ### Main window
 
-![Main Window](Screenshot_4.png)
+![Main window](screenshots/Screenshot_4.png)
 
 ### Animations
 
-![Animations](Screenshot_5.png)
+![Animations](screenshots/Screenshot_5.png)
 ## Build from source
 
 ```bash
