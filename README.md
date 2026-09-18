@@ -1,75 +1,97 @@
 # KtoolsGui
 
-Graphical interface for Ktools utilities (ktex2png and krane). Allows you to convert textures and animations in a convenient format using buttons rather than the command line.
-
-## About
-
-KtoolsGui is a tool for Don't Starve Together modders. Convert animation files (.build.bin to PNG), work with number systems, and enjoy a modern interface designed for efficient mod development.
+Graphical interface for Ktools utilities (ktex2png and krane). Convert textures and animations from Don't Starve Together with a simple click instead of command line.
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![.NET](https://img.shields.io/badge/.NET-8.0-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## Features
+---
 
-- 📁 Texture conversion (.tex → .png)
-- 🎬 Animation conversion (.build.bin → .png)
-- 🌐 Bilingual interface (Russian / English)
-- 🎨 Nice design with background
-- 🚀 Fast one-click conversion
-- Built for DST modding
+## 📖 Table of Contents
 
-## Requirements
+- [About](#about)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Texture Conversion](#texture-conversion)
+  - [Animation Conversion](#animation-conversion)
+- [Screenshots](#screenshots)
+- [Build from Source](#build-from-source)
+- [License](#license)
+- [Contacts](#contacts)
 
-- Windows 10/11
-- .NET 8.0 Runtime
+---
 
-## Installation
+## ℹ️ About
 
-1. Download the latest version from [Releases](https://github.com/sergeikirillov511-KING/KtoolsGui/releases).
-2. Unzip the archive to any folder.
-3. Run `KtoolsGui.exe`.
+**KtoolsGui** is a graphical tool for **Don't Starve Together** modders and developers. It provides a user-friendly interface for the Ktools utilities (`ktex2png` and `krane`), allowing you to:
 
-## Usage
+- Convert `.tex` texture files to `.png`
+- Extract animation frames from `.build.bin` files
+- Switch between Russian and English interface
+- Work faster with a modern, intuitive UI
 
-### Texture conversion
+No more command line needed! 🎨
 
-1. Open the **📁 Textures** tab.
-2. Select the input folder with the `.tex` files.
-3. Select the output folder for the `.png` files.
-4. Press **🚀 Convert textures**.
+---
 
-### Animation conversion
+## ✨ Features
 
-1. Open the **🎬 Animations** tab.
-2. Select the folder with `build.bin`.
-3. Select the output folder.
-4. Press **🚀 Convert animations**.
+| Feature | Description |
+|---------|-------------|
+| 📁 **Texture Conversion** | Convert `.tex` files to `.png` format |
+| 🎬 **Animation Extraction** | Extract frames from `.build.bin` animation files |
+| 🌐 **Bilingual Interface** | Switch between Russian and English with one click |
+| 🎨 **Modern Design** | Clean UI with background and smooth styling |
+| 🚀 **One-Click Conversion** | Fast processing without manual commands |
+| 📂 **Folder Selection** | Easy input/output folder picker |
 
-## Screenshots
+---
 
-### Main window
+## 🖥️ Requirements
 
-![Main window](screenshots/Screenshot_4.png)
-![Main window](screenshots/Screenshot_6.png)
+Before using KtoolsGui, make sure you have:
 
-### Animations
+- **Windows 10** or **Windows 11**
+- **.NET 8.0 Runtime** — [Download here](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-![Animations](screenshots/Screenshot_5.png)
-![Animations](screenshots/Screenshot_7.png)
+---
 
-## Build from source
+## 📥 Installation
 
-```bash
-git clone [https://github.com/sergeikirillov511-KING/KtoolsGui.git](https://github.com/sergeikirillov511-KING/KtoolsGui.git)
-cd KtoolsGui
-dotnet build
-```
+### Option 1: Download Pre-built Version (Recommended)
 
-## License
+1. Go to the **[Releases](https://github.com/sergeikirillov511-KING/KtoolsGui/releases)** page
+2. Download the latest version (e.g., `KtoolsGui-v1.0.zip`)
+3. Extract the archive to any folder (e.g., `C:\Games\KtoolsGui\`)
+4. Run `KtoolsGui.exe`
 
-MIT License — see the [LICENSE](LICENSE) file.
+### Option 2: Build from Source
 
-## Contacts
+See the **[Build from Source](#build-from-source)** section below.
 
-If you have any questions or suggestions, create an [Issue](https://github.com/sergeikirillov511-KING/KtoolsGui/issues).
+---
+
+## 🚀 Usage
+
+### 🌐 Switch Language
+
+Click the **🌐 Language** button in the top-right corner to switch between **Russian** and **English**.
+
+---
+
+### 📁 Texture Conversion
+
+Convert `.tex` files to `.png`:
+
+1. **Open KtoolsGui**
+2. Click the **📁 Textures** tab
+3. Click **📂 Select Input Folder** and choose the folder containing `.tex` files
+4. Click **📂 Select Output Folder** and choose where to save `.png` files
+5. Click **🚀 Convert Textures**
+6. Wait for the process to complete
+7. Check the output folder for converted `.png` files
+
+**Example folder structure:**
