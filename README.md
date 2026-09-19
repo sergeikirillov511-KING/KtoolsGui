@@ -209,11 +209,11 @@ anim_0120.png
 ### Main Window
 
 ![Main Window](screenshots/Screenshot_4.png)
-![Main Window](screenshots/Screenshot_6.png)
+![Main Window](screenshots/Screenshot_5.png)
 
 ### Animation Extraction
 
-![Animations](screenshots/Screenshot_5.png)
+![Animations](screenshots/Screenshot_6.png)
 ![Animations](screenshots/Screenshot_7.png)
 
 ---
