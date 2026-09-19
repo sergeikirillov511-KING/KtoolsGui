@@ -44,7 +44,7 @@ Perfect for extracting game assets for modding, animation reference, or texture 
 | Feature | Description |
 |---------|-------------|
 | 📁 **Texture Conversion** | Batch convert `.tex` files to `.png` format |
-| 🎬 **Animation Extraction** | Extract animation frames from `.build.bin` and `.build.atlas.bin` files |
+| 🎬 **Animation Extraction** | Extract animation frames from `.build.bin` and `.anim.bin` files |
 | 🌐 **Bilingual Interface** | Toggle between Russian (Русский) and English with one button |
 | 🎨 **Modern Design** | Clean, intuitive UI with custom background and smooth styling |
 | 🚀 **One-Click Processing** | No manual commands — just select folders and click |
