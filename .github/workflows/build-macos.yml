@@ -30,7 +30,7 @@ jobs:
           echo "PKG_CONFIG_PATH=$(brew --prefix imagemagick@6)/lib/pkgconfig" >> $GITHUB_ENV
           echo "CMAKE_PREFIX_PATH=$(brew --prefix imagemagick@6)" >> $GITHUB_ENV
 
-       - name: Build ktools
+      - name: Build ktools
         run: |
           IM6="$(brew --prefix imagemagick@6)"
           rm -rf ktools
@@ -67,6 +67,7 @@ jobs:
           cp ktools/build/ktech publish/
           cp ktools/build/krane publish/
           echo "KtoolsGUI for macOS." > publish/README.txt
+
       - name: Create archive
         run: |
           cd publish
