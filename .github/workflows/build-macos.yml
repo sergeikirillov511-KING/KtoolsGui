@@ -25,7 +25,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install cmake imagemagick
+          brew install cmake make pkg-config imagemagick@6
+          echo "$(brew --prefix imagemagick@6)/bin" >> $GITHUB_PATH
+          echo "PKG_CONFIG_PATH=$(brew --prefix imagemagick@6)/lib/pkgconfig" >> $GITHUB_ENV
+          echo "CMAKE_PREFIX_PATH=$(brew --prefix imagemagick@6)" >> $GITHUB_ENV
 
       - name: Build ktools
         run: |
@@ -36,7 +39,12 @@ jobs:
           rm -rf build
           mkdir build
           cd build
-          cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} ..
+          cmake \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+            -DCMAKE_PREFIX_PATH="$(brew --prefix imagemagick@6)" \
+            -DImageMagick_EXECUTABLE_DIR="$(brew --prefix imagemagick@6)/bin" \
+            -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} \
+            ..
           make
 
       - name: Publish Avalonia app
