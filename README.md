@@ -4,6 +4,10 @@
 
 A graphical interface for the **ktech** and **krane** utilities from the ktools suite — for working with Klei game assets (Don't Starve and others).
 
+KtoolsGUI построен на **Avalonia UI** — кроссплатформенном .NET-фреймворке для создания графических интерфейсов, что позволяет использовать одно и то же приложение на Windows, Linux и macOS.
+
+KtoolsGUI is built with **Avalonia UI**, a cross-platform .NET framework for building graphical interfaces, allowing the same application to run on Windows, Linux, and macOS.
+
 ---
 
 ## Русский
