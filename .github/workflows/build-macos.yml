@@ -41,6 +41,8 @@ jobs:
           cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_PREFIX_PATH="$IM6" -DCMAKE_OSX_ARCHITECTURES=x86_64 ..
           sed -i '' "1s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" CMakeFiles/ktech.dir/link.txt
           sed -i '' "1s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" CMakeFiles/krane.dir/link.txt
+          echo "=== ktech link command ==="
+          cat CMakeFiles/ktech.dir/link.txt
           make
 
       - name: Publish Avalonia app
