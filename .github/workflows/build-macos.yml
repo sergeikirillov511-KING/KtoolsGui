@@ -30,7 +30,7 @@ jobs:
           echo "PKG_CONFIG_PATH=$(brew --prefix imagemagick@6)/lib/pkgconfig" >> $GITHUB_ENV
           echo "CMAKE_PREFIX_PATH=$(brew --prefix imagemagick@6)" >> $GITHUB_ENV
 
-      - name: Build ktools
+            - name: Build ktools
         run: |
           IM6="$(brew --prefix imagemagick@6)"
           rm -rf ktools
@@ -50,7 +50,7 @@ jobs:
             -DImageMagick_MagickCore_LIBRARY="$IM6/lib/libMagickCore-6.Q16.dylib" \
             -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} \
             ..
-          find . -name link.txt -type f -exec sed -i '' -e '$s/$/ -L'"$IM6"'/lib -lMagick++-6.Q16 -lMagickCore-6.Q16/' {} +
+          find . -name link.txt -type f -exec sed -i '' -e "\$s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" {} +
           make
 
       - name: Publish Avalonia app
