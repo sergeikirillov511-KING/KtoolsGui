@@ -11,8 +11,6 @@ jobs:
         include:
           - rid: osx-x64
             archive: KtoolsGUI-osx-x64.zip
-          - rid: osx-arm64
-            archive: KtoolsGUI-osx-arm64.zip
 
     steps:
       - name: Checkout
@@ -40,27 +38,14 @@ jobs:
           rm -rf build
           mkdir build
           cd build
-          cmake \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-            -DCMAKE_PREFIX_PATH="$IM6" \
-            -DImageMagick_EXECUTABLE_DIR="$IM6/bin" \
-            -DImageMagick_INCLUDE_DIRS="$IM6/include/ImageMagick-6" \
-            -DImageMagick_Magick++_INCLUDE_DIR="$IM6/include/ImageMagick-6" \
-            -DImageMagick_Magick++_LIBRARY="$IM6/lib/libMagick++-6.Q16.dylib" \
-            -DImageMagick_MagickCore_LIBRARY="$IM6/lib/libMagickCore-6.Q16.dylib" \
-            -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} \
-            ..
-            find . -name link.txt -type f -exec sed -i '' -e "1s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" {} +
+          cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_PREFIX_PATH="$IM6" -DCMAKE_OSX_ARCHITECTURES=x86_64 ..
+          sed -i '' "1s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" CMakeFiles/ktech.dir/link.txt
+          sed -i '' "1s|\$| -L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16|" CMakeFiles/krane.dir/link.txt
           make
 
       - name: Publish Avalonia app
         run: |
-          dotnet publish ./KtoolsGui.Avalonia.csproj \
-            -c Release \
-            -r ${{ matrix.rid }} \
-            --self-contained true \
-            -p:UseAppHost=true \
-            -o publish
+          dotnet publish ./KtoolsGui.Avalonia.csproj -c Release -r osx-x64 --self-contained true -p:UseAppHost=true -o publish
 
       - name: Copy files
         run: |
@@ -71,11 +56,11 @@ jobs:
       - name: Create archive
         run: |
           cd publish
-          zip -r ../${{ matrix.archive }} .
+          zip -r ../KtoolsGUI-osx-x64.zip .
 
       - name: Upload archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.archive }}
-          path: ${{ matrix.archive }}
+          name: KtoolsGUI-osx-x64.zip
+          path: KtoolsGUI-osx-x64.zip
           if-no-files-found: error
