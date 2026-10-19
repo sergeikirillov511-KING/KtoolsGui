@@ -48,9 +48,9 @@ jobs:
             -DImageMagick_Magick++_INCLUDE_DIR="$IM6/include/ImageMagick-6" \
             -DImageMagick_Magick++_LIBRARY="$IM6/lib/libMagick++-6.Q16.dylib" \
             -DImageMagick_MagickCore_LIBRARY="$IM6/lib/libMagickCore-6.Q16.dylib" \
-            -DCMAKE_CXX_STANDARD_LIBRARIES="-L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16" \
             -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} \
             ..
+          find . -name link.txt -type f -exec sed -i '' -e '$s/$/ -L'"$IM6"'/lib -lMagick++-6.Q16 -lMagickCore-6.Q16/' {} +
           make
 
       - name: Publish Avalonia app
