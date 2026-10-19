@@ -29,18 +29,14 @@ jobs:
 
       - name: Build ktools
         run: |
+          rm -rf ktools
           git clone https://github.com/nsimplex/ktools.git
           cd ktools
           sed -i '' 's/inline void inverseOf(const ProjectiveMatrix<2, T>\& M)/inline ProjectiveMatrix<2, T> inverseOf(const ProjectiveMatrix<2, T>\& M)/' src/common/algebra.hpp
+          rm -rf build
           mkdir build
           cd build
-
-          if [ "${{ matrix.rid }}" = "osx-x64" ]; then
-            cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 ..
-          else
-            cmake -DCMAKE_OSX_ARCHITECTURES=arm64 ..
-          fi
-
+          cmake -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} ..
           make
 
       - name: Publish Avalonia app
