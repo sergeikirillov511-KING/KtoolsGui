@@ -1,0 +1,71 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        include:
+          - rid: osx-x64
+            archive: KtoolsGUI-osx-x64.zip
+          - rid: osx-arm64
+            archive: KtoolsGUI-osx-arm64.zip
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install dependencies
+        run: |
+          brew install cmake imagemagick
+
+      - name: Build ktools
+        run: |
+          git clone https://github.com/nsimplex/ktools.git
+          cd ktools
+          sed -i '' 's/inline void inverseOf(const ProjectiveMatrix<2, T>\& M)/inline ProjectiveMatrix<2, T> inverseOf(const ProjectiveMatrix<2, T>\& M)/' src/common/algebra.hpp
+          mkdir build
+          cd build
+
+          if [ "${{ matrix.rid }}" = "osx-x64" ]; then
+            cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 ..
+          else
+            cmake -DCMAKE_OSX_ARCHITECTURES=arm64 ..
+          fi
+
+          make
+
+      - name: Publish Avalonia app
+        run: |
+          dotnet publish ./KtoolsGui.Avalonia.csproj \
+            -c Release \
+            -r ${{ matrix.rid }} \
+            --self-contained true \
+            -p:UseAppHost=true \
+            -o publish
+
+      - name: Copy files
+        run: |
+          cp ktools/build/ktech publish/
+          cp ktools/build/krane publish/
+          cp README.txt publish/
+
+      - name: Create archive
+        run: |
+          cd publish
+          zip -r ../${{ matrix.archive }} .
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.archive }}
+          path: ${{ matrix.archive }}
+          if-no-files-found: error

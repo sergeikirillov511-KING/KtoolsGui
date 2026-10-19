@@ -1,0 +1,210 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="KtoolsGui.Avalonia.MainWindow"
+        Title="ktoolsGUI"
+        Width="1020"
+        Height="760"
+        CanResize="False"
+        WindowState="Normal"
+        Icon="avares://KtoolsGui.Avalonia/Assets/KtoolGUI_Backround.ico"
+        RequestedThemeVariant="Dark">
+
+	<Window.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+		</Style>
+
+		<Style Selector="TextBox">
+			<Setter Property="Background" Value="#CC2A2A3C"/>
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+		</Style>
+
+		<Style Selector="TextBlock.fieldLabel">
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+		</Style>
+
+		<Style Selector="TextBlock.statusLabel">
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+		</Style>
+
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#CC3A3A52"/>
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+		</Style>
+
+		<Style Selector="ComboBox">
+			<Setter Property="Background" Value="#E6111120"/>
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+			<Setter Property="BorderBrush" Value="#66FFFFFF"/>
+		</Style>
+
+		<Style Selector="ComboBoxItem">
+			<Setter Property="Background" Value="#111120"/>
+			<Setter Property="Foreground" Value="#FFFFFF"/>
+		</Style>
+
+		<Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#2A2A3C"/>
+		</Style>
+
+		<Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+			<Setter Property="Background" Value="#3A3A52"/>
+		</Style>
+
+		<Style Selector="Popup > Border">
+			<Setter Property="Background" Value="#111120"/>
+		</Style>
+	</Window.Styles>
+
+	<Panel>
+
+		<Image Source="avares://KtoolsGui.Avalonia/Assets/10th_Anniversary_Celebration.png"
+			   Stretch="UniformToFill"
+			   Opacity="0.30"/>
+
+		<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" Margin="16">
+			
+			<StackPanel Grid.Row="0" Spacing="6">
+				<TextBlock x:Name="KtoolsLabel"
+						   Classes="fieldLabel"
+						   Text="Путь к ktools"
+						   FontWeight="SemiBold"/>
+				<Grid ColumnDefinitions="*,Auto">
+					<TextBox x:Name="KtoolsPathBox"
+							 Watermark="Папка с ktech.exe и krane.exe"/>
+					<Button x:Name="BrowseKtoolsButton"
+							Grid.Column="1"
+							Margin="8,0,0,0"
+							Content="Обзор..."
+							Click="OnBrowseKtools"/>
+				</Grid>
+			</StackPanel>
+
+			<StackPanel Grid.Row="1" Spacing="6" Margin="0,14,0,0">
+				<TextBlock x:Name="ModeLabel"
+						   Classes="fieldLabel"
+						   Text="Режим"
+						   FontWeight="SemiBold"/>
+				<ComboBox x:Name="ModeBox"
+						  SelectedIndex="0"
+						  MinWidth="360">
+					<ComboBoxItem Content="PNG → TEX"/>
+					<ComboBoxItem Content="TEX → PNG"/>
+					<ComboBoxItem Content="Извлечь анимации (krane)"/>
+				</ComboBox>
+			</StackPanel>
+
+			<StackPanel Grid.Row="2" Spacing="6" Margin="0,14,0,0">
+				<TextBlock x:Name="InputLabel"
+						   Classes="fieldLabel"
+						   Text="Исходная папка"
+						   FontWeight="SemiBold"/>
+				<Grid ColumnDefinitions="*,Auto">
+					<TextBox x:Name="InputFolderBox"/>
+					<Button x:Name="BrowseInputButton"
+							Grid.Column="1"
+							Margin="8,0,0,0"
+							Content="Обзор..."
+							Click="OnBrowseInput"/>
+				</Grid>
+			</StackPanel>
+
+			<StackPanel Grid.Row="3" Spacing="6" Margin="0,14,0,0">
+				<TextBlock x:Name="OutputLabel"
+						   Classes="fieldLabel"
+						   Text="Папка результата"
+						   FontWeight="SemiBold"/>
+				<Grid ColumnDefinitions="*,Auto,Auto">
+					<TextBox x:Name="OutputFolderBox"/>
+					<Button x:Name="BrowseOutputButton"
+							Grid.Column="1"
+							Margin="8,0,0,0"
+							Content="Обзор..."
+							Click="OnBrowseOutput"/>
+					<Button x:Name="OpenOutputButton"
+							Grid.Column="2"
+							Margin="8,0,0,0"
+							Content="Открыть"
+							Click="OnOpenOutput"/>
+				</Grid>
+			</StackPanel>
+
+			<CheckBox Grid.Row="4"
+					  x:Name="SkipExistingBox"
+					  Margin="0,14,0,0"
+					  Content="Пропускать уже существующие файлы результата"/>
+
+			<StackPanel Grid.Row="5"
+						Orientation="Horizontal"
+						Spacing="10"
+						Margin="0,14,0,0">
+			  <Button x:Name="ConvertButton"
+					  Content="Начать"
+					  Padding="20,8"
+					  Click="OnConvert"/>
+			  <Button x:Name="CancelButton"
+					  Content="Отмена"
+					  Padding="20,8"
+					  IsEnabled="False"
+					  Click="OnCancel"/>
+
+			  <ComboBox x:Name="LanguageBox"
+						SelectedIndex="0"
+						MinWidth="150"
+						SelectionChanged="OnLanguageChanged">
+				<ComboBoxItem Content="Русский"/>
+				<ComboBoxItem Content="English"/>
+			  </ComboBox>
+
+			  <Button x:Name="AboutButton"
+					  Content="О программе"
+					  Padding="20,8"
+					  Click="OnAbout"/>
+			</StackPanel>
+
+			<StackPanel Grid.Row="6" Spacing="4" Margin="0,14,0,0">
+				<ProgressBar x:Name="Progress"
+							 Minimum="0"
+							 Maximum="100"
+							 Height="8"/>
+
+				<TextBlock x:Name="StatusText"
+						   Classes="statusLabel"
+						   Text="Готово"/>
+
+				<Button x:Name="ClearLogButton"
+						Content="Очистить журнал"
+						HorizontalAlignment="Right"
+						Background="#262A38"
+						Foreground="#E6E8F0"
+						BorderBrush="#3A4054"
+						BorderThickness="1"
+						CornerRadius="8"
+						Padding="14,8"
+						Cursor="Hand"/>
+
+				<Border BorderBrush="#66FFFFFF"
+						BorderThickness="1"
+						CornerRadius="6"
+						Background="#B3111120"
+						Height="260">
+					<ListBox x:Name="LogList"
+							 Background="Transparent"
+							 BorderThickness="0"
+							 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Text}"
+										   TextWrapping="Wrap"
+										   FontFamily="Consolas, monospace"
+										   Foreground="{Binding Color}"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Border>
+			</StackPanel>
+		</Grid>
+	</Panel>
+</Window>

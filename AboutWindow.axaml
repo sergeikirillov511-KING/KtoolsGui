@@ -1,0 +1,41 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="KtoolsGui.Avalonia.AboutWindow"
+        Title="О программе"
+        Width="440"
+        Height="280"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="#0F111A">
+
+	<StackPanel Margin="24" Spacing="14">
+		<TextBlock x:Name="TitleText"
+				   Text="ktoolsGUI"
+				   FontSize="22"
+				   FontWeight="Bold"
+				   Foreground="#FFFFFF"/>
+
+		<TextBlock x:Name="DescriptionText"
+				   TextWrapping="Wrap"
+				   Foreground="#D6D9E4"/>
+
+		<TextBlock x:Name="ToolsText"
+				   TextWrapping="Wrap"
+				   Foreground="#D6D9E4"/>
+
+		<Button x:Name="CloseButton"
+                Content="Закрыть"
+                HorizontalAlignment="Right"
+                Background="#262A38"
+                Foreground="#E6E8F0"
+                BorderBrush="#3A4054"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="18,10"
+                FontWeight="SemiBold"
+                Cursor="Hand"/>
+	</StackPanel>
+</Window>
