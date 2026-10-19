@@ -32,6 +32,7 @@ jobs:
 
       - name: Build ktools
         run: |
+          IM6="$(brew --prefix imagemagick@6)"
           rm -rf ktools
           git clone https://github.com/nsimplex/ktools.git
           cd ktools
@@ -41,8 +42,13 @@ jobs:
           cd build
           cmake \
             -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-            -DCMAKE_PREFIX_PATH="$(brew --prefix imagemagick@6)" \
-            -DImageMagick_EXECUTABLE_DIR="$(brew --prefix imagemagick@6)/bin" \
+            -DCMAKE_PREFIX_PATH="$IM6" \
+            -DImageMagick_EXECUTABLE_DIR="$IM6/bin" \
+            -DImageMagick_INCLUDE_DIRS="$IM6/include/ImageMagick-6" \
+            -DImageMagick_Magick++_INCLUDE_DIR="$IM6/include/ImageMagick-6" \
+            -DImageMagick_Magick++_LIBRARY="$IM6/lib/libMagick++-6.Q16.dylib" \
+            -DImageMagick_MagickCore_LIBRARY="$IM6/lib/libMagickCore-6.Q16.dylib" \
+            -DCMAKE_EXE_LINKER_FLAGS="-L$IM6/lib -lMagick++-6.Q16 -lMagickCore-6.Q16" \
             -DCMAKE_OSX_ARCHITECTURES=${{ matrix.rid == 'osx-x64' && 'x86_64' || 'arm64' }} \
             ..
           make
