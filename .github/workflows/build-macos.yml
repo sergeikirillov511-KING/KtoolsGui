@@ -66,8 +66,7 @@ jobs:
         run: |
           cp ktools/build/ktech publish/
           cp ktools/build/krane publish/
-          cp README.txt publish/
-
+          echo "KtoolsGUI for macOS." > publish/README.txt
       - name: Create archive
         run: |
           cd publish
