@@ -1,69 +1,59 @@
 # KtoolsGUI
 
-Графический интерфейс для утилит **ktech** и **krane** из набора ktools — для работы с ресурсами игр Klei (Don't Starve и др.).
+**KtoolsGUI v5.0** is the **final release** of a graphical interface for **ktech** and **krane** from the [ktools](https://github.com/nsimplex/ktools) suite.
 
-A graphical interface for the **ktech** and **krane** utilities from the ktools suite — for working with Klei game assets (Don't Starve and others).
+It converts Klei `.tex` textures to `.png` images and back, and unpacks `anim.bin` and `build.bin` animation files from *Don't Starve* and *Don't Starve Together* into Spriter projects.
 
-KtoolsGUI построен на **Avalonia UI** — кроссплатформенном .NET-фреймворке для создания графических интерфейсов, что позволяет использовать одно и то же приложение на Windows, Linux и macOS.
+**KtoolsGUI v5.0** — **финальная версия** графического интерфейса для утилит **ktech** и **krane** из набора [ktools](https://github.com/nsimplex/ktools).
 
-KtoolsGUI is built with **Avalonia UI**, a cross-platform .NET framework for building graphical interfaces, allowing the same application to run on Windows, Linux, and macOS.
+Приложение конвертирует текстуры Klei `.tex` в изображения `.png` и обратно, а также распаковывает файлы анимаций `anim.bin` и `build.bin` из *Don't Starve* и *Don't Starve Together* в проекты Spriter.
 
----
+## Downloads / Загрузки
 
-## Русский
+Download the final version here:  
+**https://github.com/sergeikirillov511-KING/KtoolsGui/releases/tag/v5.0**
 
-### Сборки
+Скачать финальную версию можно здесь:  
+**https://github.com/sergeikirillov511-KING/KtoolsGui/releases/tag/v5.0**
 
-| Платформа | Архив |
-|---|---|
-| Windows 64-bit | `KtoolsGUI-win-x64.zip` |
-| Linux 64-bit | `KtoolsGUI-linux-x64.zip` |
-| macOS Apple Silicon (M1/M2/M3/M4) | `KtoolsGUI-osx-arm64.zip` |
+- `KtoolsGUI-win-x64.zip` — Windows 64-bit  
+- `KtoolsGUI-linux-x64.zip` — Linux 64-bit  
+- `KtoolsGUI-osx-arm64.zip` — macOS Apple Silicon (M1/M2/M3/M4)
 
+## How to use / Как использовать
 
-### Состав архива
+1. Download and extract the archive for your operating system.  
+   Скачайте и распакуйте архив для вашей операционной системы.
 
-- `KtoolsGui.Avalonia` — графическое приложение
-- `ktech` — конвертер текстур KTEX
-- `krane` — работа с анимациями и моделями
-- `README.txt` — краткая справка
+2. Run `KtoolsGUI`.  
+   Запустите `KtoolsGUI`.
 
-### Запуск
+3. Convert `.tex` texture files to editable `.png` images, edit them, and convert them back to `.tex`.  
+   Конвертируйте файлы текстур `.tex` в редактируемые изображения `.png`, внесите изменения и конвертируйте их обратно в `.tex`.
 
-Распакуйте архив в любую папку и запустите `KtoolsGui.Avalonia`.
+4. Use **krane** to unpack `anim.bin` and `build.bin` animation files into a Spriter project.  
+   Используйте **krane** для распаковки файлов анимаций `anim.bin` и `build.bin` в проект Spriter.
 
-**macOS:** при первом запуске может понадобиться снять блокировку Gatekeeper:
+5. Place the resulting files into your mod folder.  
+   Поместите полученные файлы в папку вашего мода.
 
-```bash
-xattr -cr /путь/к/KtoolsGui.Avalonia
-```
+## Final version / Финальная версия
 
----
+**KtoolsGUI v5.0 is the final version of the application.**  
+**KtoolsGUI v5.0 — финальная версия приложения.**
 
-## English
+No further feature updates are planned. The current release will remain available for download.  
+Дальнейшие обновления функций не планируются. Текущая версия останется доступной для скачивания.
 
-### Builds
+## Source code / Исходный код
 
-| Platform | Archive |
-|---|---|
-| Windows 64-bit | `KtoolsGUI-win-x64.zip` |
-| Linux 64-bit | `KtoolsGUI-linux-x64.zip` |
-| macOS Apple Silicon (M1/M2/M3/M4) | `KtoolsGUI-osx-arm64.zip` |
+GitHub repository / Репозиторий GitHub:  
+**https://github.com/sergeikirillov511-KING/KtoolsGui**
 
+Built with Avalonia UI.  
+Приложение построено на Avalonia UI.
 
-### Archive contents
+## License / Лицензия
 
-- `KtoolsGui.Avalonia` — the graphical application
-- `ktech` — KTEX texture converter
-- `krane` — animation and model tools
-- `README.txt` — quick reference
-
-### Running
-
-Extract the archive to any folder and run `KtoolsGui.Avalonia`.
-
-**macOS:** on first launch you may need to remove the Gatekeeper quarantine:
-
-```bash
-xattr -cr /path/to/KtoolsGui.Avalonia
-```
+This project is licensed under the [MIT License](LICENSE).  
+Этот проект распространяется по лицензии [MIT](LICENSE).
